@@ -55,7 +55,7 @@ func SketchSaveItemCpp(path string, contents []byte, destPath string) error {
 		return errors.Wrap(err, "unable to create a folder to save the sketch")
 	}
 
-	destFile := filepath.Join(destPath, sketchName+".cpp")
+	destFile := filepath.Join(destPath, sketchName+".cu")
 
 	if err := ioutil.WriteFile(destFile, contents, os.FileMode(0644)); err != nil {
 		return errors.Wrap(err, "unable to save the sketch on disk")

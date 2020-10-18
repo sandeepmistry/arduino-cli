@@ -44,7 +44,7 @@ var ArduinoPreprocessorProperties = properties.NewFromHashmap(map[string]string{
 type PreprocessSketchArduino struct{}
 
 func (s *PreprocessSketchArduino) Run(ctx *types.Context) error {
-	sourceFile := ctx.SketchBuildPath.Join(ctx.Sketch.MainFile.Name.Base() + ".cpp")
+	sourceFile := ctx.SketchBuildPath.Join(ctx.Sketch.MainFile.Name.Base() + ".cu")
 	commands := []types.Command{
 		&ArduinoPreprocessorRunner{},
 	}

@@ -32,6 +32,7 @@ var (
 		".hh":  empty,
 		".cpp": empty,
 		".s":   empty,
+		".cu":  empty,
 	}
 
 	// SourceFilesValidExtensions lists valid extensions for source files (no headers)
@@ -39,5 +40,6 @@ var (
 		".c":   empty,
 		".cpp": empty,
 		".s":   empty,
+		".cu":  empty,
 	}
 )

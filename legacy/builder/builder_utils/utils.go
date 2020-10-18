@@ -80,8 +80,12 @@ func CompileFiles(ctx *types.Context, sourcePath *paths.Path, recurse bool, buil
 	if err != nil {
 		return nil, errors.WithStack(err)
 	}
+	cuSources, err := findFilesInFolder(sourcePath, ".cu", recurse)
+        if err != nil {
+                return nil, errors.WithStack(err)
+        }
 
-	ctx.Progress.AddSubSteps(len(sSources) + len(cSources) + len(cppSources))
+	ctx.Progress.AddSubSteps(len(sSources) + len(cSources) + len(cppSources) + len(cuSources))
 	defer ctx.Progress.RemoveSubSteps()
 
 	sObjectFiles, err := compileFilesWithRecipe(ctx, sourcePath, sSources, buildPath, buildProperties, includes, constants.RECIPE_S_PATTERN)
@@ -96,11 +100,16 @@ func CompileFiles(ctx *types.Context, sourcePath *paths.Path, recurse bool, buil
 	if err != nil {
 		return nil, errors.WithStack(err)
 	}
+	cuObjectFiles, err := compileFilesWithRecipe(ctx, sourcePath, cuSources, buildPath, buildProperties, includes, constants.RECIPE_CU_PATTERN)
+        if err != nil {
+                return nil, errors.WithStack(err)
+        }
 
 	objectFiles := paths.NewPathList()
 	objectFiles.AddAll(sObjectFiles)
 	objectFiles.AddAll(cObjectFiles)
 	objectFiles.AddAll(cppObjectFiles)
+	objectFiles.AddAll(cuObjectFiles)
 	return objectFiles, nil
 }
 
